@@ -4,19 +4,25 @@ SAST scanning using snyk
 * Containerized pyspark application
 
 
+# Snyk SAST scans
 
-## Sample API
+Read [here](docs/snyk_setup.md)
+
+## Developer Setup
+
+### Pre-requisites
+
+* docker desktop installed on local machine
 
 ```
-# build local fastapi docker image
-docker build --no-cache --tag sampleapi -f Dockerfile.fastapi .
-
 # run docker container
-docker-compose up
+docker-compose up --build # build is first time only
 
 # stop docker compose
 docker-compose down
 
+# access postgres db
+docker exec -it <container_id> /bin/sh -c "psql -U postgres"
 ```
 
 ### Output
@@ -33,10 +39,6 @@ Access API Swagger docs [here](http://127.0.0.1:18000/docs/)
 
 **Pyspark Application**
 ![pyspark app](docs/images/pyspark_app.png)
-
-```
-docker exec -it <container_id> /bin/sh -c "psql -U postgres"
-```
 
 
 
