@@ -5,6 +5,7 @@ fastapi==0.101.0
 h11==0.14.0
 httptools==0.6.0
 idna==3.4
+psycopg2-binary==2.9.7
 py4j==0.10.9.5
 pydantic==2.1.1
 pydantic_core==2.4.0

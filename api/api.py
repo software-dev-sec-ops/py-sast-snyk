@@ -1,28 +1,53 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional
+import datetime
+import psycopg2
+import json
+import os
 
 app = FastAPI()
 
 class Item(BaseModel):
+    id: int
     name: str
-    price: float
-    is_offer: bool = None
+    created_ts: str
+    update_ts: str
 
 @app.get("/items")
 def read():
-    return {"Hello": "World"}
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("select id, name, created_ts, updated_ts from item;")
+    result = json.dumps(cur.fetchall(), default=str, indent=4)
+    return result
 
 
 @app.get("/items/{id}")
-def read_item(id: int, q: Optional[str] = None):
-    return {"id": id, "q": q}
+def read_item(id: int):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("select id, name, created_ts, updated_ts from item where id = (%s);", [id])
+    result = json.dumps(cur.fetchall(), default=str, indent=4)
+    return result
 
 
 @app.put("/items/{id}")
-def read_item(id: int):
-    return {"id": id}
+def put_item(id: int, name: str):
+    conn = get_conn()
+    cur = conn.cursor()
+    created_ts = datetime.datetime.now().isoformat()
+    updated_ts = datetime.datetime.now().isoformat()
+    cur.execute("insert into item (id, name, created_ts, updated_ts) values (%s, %s, %s, %s);", [id, name, created_ts, updated_ts])
+    conn.commit()
+    return "success"
 
 
-# if __name__ == "__main__":
-#     uvicorn.run("main:app", port=8000, log_level="info")
+def get_conn():
+    conn = psycopg2.connect(
+        host="postgres_db",
+        database="postgres",
+        user="postgres",
+        password="<enter_pwd>"
+        )
+    return conn

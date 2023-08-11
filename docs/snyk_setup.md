@@ -56,3 +56,7 @@ Authentication success
 6. Check for log4Shell issues with synk
 ![synk log4Shell](images/synk_log4shell.png)
 
+
+## SAST scan in Azure pipeline
+
+
