@@ -48,6 +48,6 @@ def get_conn():
         host="postgres_db",
         database="postgres",
         user="postgres",
-        password="<enter_pwd>"
+        password="postgres"
         )
     return conn

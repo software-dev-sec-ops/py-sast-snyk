@@ -23,5 +23,15 @@ services:
     depends_on:
       - postgres_db
 
+  pyspark:
+    build:
+      context: .
+      dockerfile: Dockerfile.pyspark
+    volumes:
+      - ./pyspark/:/opt/pyspark_app/
+    command: sample_pyspark_app.py
+    ports:
+      - 4040:4040
+
 volumes:
     postgres_data:

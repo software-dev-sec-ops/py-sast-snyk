@@ -1,8 +1,7 @@
 # A sample PySpark Application
 
 from pyspark.sql import SparkSession
-from pyspark.sql import Column
-from pyspark.sql.functions import current_timestamp, current_date
+from pyspark.sql.functions import col, lit, current_timestamp, current_date
 
 def main():
     """
@@ -36,17 +35,17 @@ def main():
     df.printSchema()
 
     # Perform simple transformation
-    final_df = df.withColumn("new_id", df.id+1) \
-        .withColumn("current_ts", current_timestamp) \
-        .withColumn("current_date", current_date)
+    final_df = df.withColumn("new_id", col('id')*1) \
+        .withColumn("current_ts", current_timestamp()) \
+        .withColumn("current_date", current_date())
 
-    final_df.show()
+    final_df.show(truncate=False)
 
     # write final_df locally
     final_df.write.format("parquet") \
         .mode("overwrite") \
         .partitionBy("current_date")\
-        .save("output/final_df")
+        .save("resources/output/final_df")
 
     # stop spark
     spark.stop()

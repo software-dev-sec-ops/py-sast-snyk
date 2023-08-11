@@ -1,27 +1,43 @@
 # py-sast-snyk
-SAST Demo for Snyk
+SAST scanning using snyk 
+* Containerized fastapi in Python language
+* Containerized pyspark application
+
 
 
 ## Sample API
 
-
 ```
-# build local docker image
-docker build --no-cache --tag sampleapi -f Dockerfile .
+# build local fastapi docker image
+docker build --no-cache --tag sampleapi -f Dockerfile.fastapi .
 
 # run docker container
-docker run -p 18000:18000 --name demo-api sampleapi:latest
+docker-compose up
 
-# Access API Swagger docs
-# http://127.0.0.1:18000/docs/
+# stop docker compose
+docker-compose down
 
 ```
 
-## Postgres db
+### Output
+
+**docker-compose up**
+![docker compose up](docs/images/docker_compose_up.png)
+
+**fast API**
+Access API Swagger docs [here](http://127.0.0.1:18000/docs/)
+![fast api swagger docs](docs/images/fast_api_swagger.png)
+
+**Postgres db**
+![postgres db](docs/images/postgres_db.png)
+
+**Pyspark Application**
+![pyspark app](docs/images/pyspark_app.png)
 
 ```
 docker exec -it <container_id> /bin/sh -c "psql -U postgres"
 ```
+
 
 
 
