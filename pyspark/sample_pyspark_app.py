@@ -12,6 +12,9 @@ def main():
         .appName("Sample PySpark") \
         .master("local[*]") \
         .getOrCreate()
+    
+    # spark version
+    print(">>>> Spark Version: {}".format(spark.version))
 
     # turn off verbose logging
     spark.sparkContext.setLogLevel("ERROR")
@@ -38,7 +41,6 @@ def main():
     final_df = df.withColumn("new_id", col('id')*1) \
         .withColumn("current_ts", current_timestamp()) \
         .withColumn("current_date", current_date())
-
     final_df.show(truncate=False)
 
     # write final_df locally

@@ -18,9 +18,10 @@ This project includes docker containerized `API, Postgres database and Pyspark` 
 * SAST Tool - `snyk`
 * CICD Pipeline - `Azure Pipeline`
 
-# Snyk SAST scans
+## Snyk SAST scans
 
 Read details [here](docs/snyk_setup.md)
+
 
 ## Developer Setup
 
