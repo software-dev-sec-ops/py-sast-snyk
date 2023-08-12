@@ -3,16 +3,16 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit, current_timestamp, current_date
 
+
 def main():
     """
     Main function
     """
     # create a spark session
-    spark = SparkSession.builder \
-        .appName("Sample PySpark") \
-        .master("local[*]") \
-        .getOrCreate()
-    
+    spark = (
+        SparkSession.builder.appName("Sample PySpark").master("local[*]").getOrCreate()
+    )
+
     # spark version
     print(">>>> Spark Version: {}".format(spark.version))
 
@@ -25,7 +25,7 @@ def main():
         {"id": 2, "desc": "item2"},
         {"id": 3, "desc": "item3"},
         {"id": 4, "desc": "item4"},
-        {"id": 5, "desc": "item5"}
+        {"id": 5, "desc": "item5"},
     ]
 
     # create a dataframe
@@ -38,16 +38,17 @@ def main():
     df.printSchema()
 
     # Perform simple transformation
-    final_df = df.withColumn("new_id", col('id')*1) \
-        .withColumn("current_ts", current_timestamp()) \
+    final_df = (
+        df.withColumn("new_id", col("id") * 1)
+        .withColumn("current_ts", current_timestamp())
         .withColumn("current_date", current_date())
+    )
     final_df.show(truncate=False)
 
     # write final_df locally
-    final_df.write.format("parquet") \
-        .mode("overwrite") \
-        .partitionBy("current_date")\
-        .save("resources/output/final_df")
+    final_df.write.format("parquet").mode("overwrite").partitionBy("current_date").save(
+        "resources/output/final_df"
+    )
 
     # stop spark
     spark.stop()
