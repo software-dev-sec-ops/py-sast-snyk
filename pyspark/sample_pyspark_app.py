@@ -10,7 +10,12 @@ def main():
     """
     # create a spark session
     spark = (
-        SparkSession.builder.appName("Sample PySpark").master("local[*]").getOrCreate()
+        SparkSession.builder.config(
+            "spark.jars", "/opt/pyspark_app/jars/postgresql-42.6.0.jar"
+        )
+        .appName("Sample PySpark")
+        .master("local[*]")
+        .getOrCreate()
     )
 
     # spark version
@@ -31,10 +36,8 @@ def main():
     # create a dataframe
     df = spark.createDataFrame(data)
 
-    # print data
-    df.show(n=5)
-
     # print schema
+    print(">>>>>>>>>>> dataframe schema")
     df.printSchema()
 
     # Perform simple transformation
@@ -43,12 +46,29 @@ def main():
         .withColumn("current_ts", current_timestamp())
         .withColumn("current_date", current_date())
     )
+    print(">>>>>>>>>>>> final_df.show()")
     final_df.show(truncate=False)
 
     # write final_df locally
+    print(">>>>>>>>>>>> write parquet using final_df")
     final_df.write.format("parquet").mode("overwrite").partitionBy("current_date").save(
         "resources/output/final_df"
     )
+
+    # reading data from postgres_db public.item
+    print(">>>>>>>>>>>> Read data from postgres_db from public.item table")
+    itemDF = (
+        spark.read.format("jdbc")
+        .option("url", "jdbc:postgresql://postgres_db:5432/postgres")
+        .option("dbtable", "public.item")
+        .option("user", "postgres")
+        .option("password", "XXXXXX")
+        .option("driver", "org.postgresql.Driver")
+        .load()
+    )
+
+    print(">>>>>>>>>>>>> itemDF.show()")
+    itemDF.show(truncate=False)
 
     # stop spark
     spark.stop()

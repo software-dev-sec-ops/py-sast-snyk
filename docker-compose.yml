@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres_db:
@@ -29,9 +29,12 @@ services:
       dockerfile: Dockerfile.pyspark
     volumes:
       - ./pyspark/:/opt/pyspark_app/
+      - ./resources/jars:/opt/pyspark_app/jars/
     command: sample_pyspark_app.py
     ports:
       - 4040:4040
+    depends_on:
+      - postgres_db
 
 volumes:
-    postgres_data:
+  postgres_data:

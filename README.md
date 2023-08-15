@@ -1,33 +1,35 @@
 # SAST using snyk demo project
 
 ## Objectives
-* Perform SAST scanning using snyk on local machine
-* Integrate SAST scan using synk using CICD pipeline
+
+- Perform SAST scanning using snyk on local machine
+- Integrate SAST scan using synk using CICD pipeline
 
 ## Demo Project
 
 This project includes docker containerized `API, Postgres database and Pyspark` application
 
 ### Technology Stack
-* API framework - `fastapi`
-* Language - `python`
-* Database - `postgres`
-* Big Data Tool - `Apache Spark`
-* Container System - `Docker`
-* Container Orchestrator - `Docker Compose`
-* SAST Tool - `snyk`
-* CICD Pipeline - `Azure Pipeline`
+
+- API framework - `fastapi`
+- Language - `python`
+- Database - `postgres`
+- Big Data Tool - `Apache Spark`
+- Container System - `Docker`
+- Container Orchestrator - `Docker Compose`
+- SAST Tool - `snyk`
+- CICD Pipeline - `Azure Pipeline`
 
 ## Snyk SAST scans
 
 Read details [here](docs/snyk_setup.md)
-
 
 ## Developer Setup
 
 ### Pre-requisites
 
 - [docker-desktop](https://www.docker.com/products/docker-desktop/) installed on local machine
+- Download [postgresql-42.6.0.jar](https://repo1.maven.org/maven2/org/postgresql/postgresql/42.6.0/postgresql-42.6.0.jar) jar to `resources/jars` folder
 
 ```
 # run docker container
