@@ -1,15 +1,23 @@
 #!/bin/sh
 
-# Snyk SAST Scanning
+set -e
 
-echo "Intiating Snyk SAST scanning"
-snyk code test
-echo "Successfully executed Snyk SAST scan"
+# Snyk SAST Scanning
+fn run_snyk_sast_scan() {
+    echo "$(date) Intiating Snyk SAST scanning"
+    snyk code test
+    echo "$(date) Successfully executed Snyk SAST scan"
+}
+
 
 # Snyk SCA Scanning
+fn run_snyk_sca_scan() {
+    echo "$(date) Intiating Snyk SCA scanning"
+    snyk test
+    echo "$(date) Successfully executed Snyk SCA scan"
+}
 
-echo "Intiating Snyk SCA scanning"
-snyk test
-echo "Successfully executed Snyk SCA scan"
+run_snyk_sast_scan
+run_snyk_sca_scan
 
 exit 0
