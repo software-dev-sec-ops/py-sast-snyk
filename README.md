@@ -9,6 +9,7 @@
 
 1. git client side hooks serve as preventative control security gates
 2. Pre-requisite is Snyk account with a subscription
+3. `pre-push` git hook will execute `SAST` and `SCA` scans prior to pushing code to remote github repo
 
 ## Demo Project
 

@@ -1,18 +1,20 @@
 #!/bin/sh
 
+echo "$(date) Executing pre-push git hooks"
+
 # Snyk SAST Scanning
 run_snyk_sast_scan() {
-    echo "Intiating Snyk SAST scanning"
+    echo "$(date) Intiating Snyk SAST scanning"
     snyk code test
-    echo "Successfully executed Snyk SAST scan"
+    echo "$(date) Successfully executed Snyk SAST scan"
 }
 
 
 # Snyk SCA Scanning
 run_snyk_sca_scan() {
-    echo "Intiating Snyk SCA scanning"
+    echo "$(date) Intiating Snyk SCA scanning"
     snyk test
-    echo "Successfully executed Snyk SCA scan"
+    echo "$(date) Successfully executed Snyk SCA scan"
 }
 
 run_snyk_sast_scan
