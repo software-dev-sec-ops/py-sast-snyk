@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Snyk SAST Scanning
+
+echo "Intiating Snyk SAST scanning"
+snyk code test
+echo "Successfully executed Snyk SAST scan"
+
+# Snyk SCA Scanning
+
+echo "Intiating Snyk SCA scanning"
+snyk test
+echo "Successfully executed Snyk SCA scan"
+
+exit 0

@@ -1,37 +1,16 @@
-# A sample PySpark Application
+"""
+Demo PySpark Application
+"""
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, lit, current_timestamp, current_date
 
 
-def main():
-    """
-    Main function
-    """
-    # create a spark session
-    spark = (
-        SparkSession.builder.config(
-            "spark.jars", "/opt/pyspark_app/jars/postgresql-42.6.0.jar"
-        )
-        .appName("Sample PySpark")
-        .master("local[*]")
-        .getOrCreate()
-    )
-
-    # spark version
-    print(">>>> Spark Version: {}".format(spark.version))
-
-    # turn off verbose logging
-    spark.sparkContext.setLogLevel("ERROR")
+def main(spark, **kwargs):
+    """Entrypoint"""
 
     # create sample data
-    data = [
-        {"id": 1, "desc": "item1"},
-        {"id": 2, "desc": "item2"},
-        {"id": 3, "desc": "item3"},
-        {"id": 4, "desc": "item4"},
-        {"id": 5, "desc": "item5"},
-    ]
+    data = create_sample_data(kwargs["num_records"])
 
     # create a dataframe
     df = spark.createDataFrame(data)
@@ -74,5 +53,41 @@ def main():
     spark.stop()
 
 
+def setup_spark_session():
+    """setup spark session with required configurations
+
+    Returns:
+        obj: returns a spark session object
+    """
+    spark = (
+        SparkSession.builder.config(
+            "spark.jars", "/opt/pyspark_app/jars/postgresql-42.6.0.jar"
+        )
+        .appName("Sample PySpark")
+        .master("local[*]")
+        .getOrCreate()
+    )
+    # spark version
+    print(">>>> Spark Version: {}".format(spark.version))
+    # turn off verbose logging
+    spark.sparkContext.setLogLevel("ERROR")
+    return spark
+
+
+def create_sample_data(num_records: int = 5) -> list[dict]:
+    """generates sample data based on the desired number of records
+
+    Args:
+        num_records (int, optional): number of sample records to generate. Defaults to 5.
+
+    Returns:
+        list[Item]: returns a list of item dictionary objects
+    """
+    data = [dict(id=i, desc="item" + str(i)) for i in range(num_records)]
+    return data
+
+
 if __name__ == "__main__":
-    main()
+    spark = setup_spark_session()
+    input = dict(num_records=5)
+    main(spark, **input)
