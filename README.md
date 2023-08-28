@@ -8,6 +8,7 @@
 ## Git Hooks
 
 1. git client side hooks serve as preventative control security gates
+2. Pre-requisite is Snyk account with a subscription
 
 ## Demo Project
 
