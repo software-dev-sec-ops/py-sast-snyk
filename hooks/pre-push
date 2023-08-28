@@ -3,7 +3,7 @@
 set -e
 
 # Snyk SAST Scanning
-fn run_snyk_sast_scan() {
+run_snyk_sast_scan() {
     echo "${date} Intiating Snyk SAST scanning"
     snyk code test
     echo "${date} Successfully executed Snyk SAST scan"
@@ -11,7 +11,7 @@ fn run_snyk_sast_scan() {
 
 
 # Snyk SCA Scanning
-fn run_snyk_sca_scan() {
+run_snyk_sca_scan() {
     echo "${date} Intiating Snyk SCA scanning"
     snyk test
     echo "${date} Successfully executed Snyk SCA scan"
