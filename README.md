@@ -5,6 +5,10 @@
 - Perform SAST scanning using snyk on local machine
 - Integrate SAST scan using synk using CICD pipeline
 
+## Git Hooks
+
+1. git client side hooks serve as preventative control security gates
+
 ## Demo Project
 
 This project includes docker containerized `API, Postgres database and Pyspark` application
